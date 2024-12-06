@@ -23,51 +23,56 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    @role('Owner|Chef')
+    @role('Owner|Chef|Kepala Toko')
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Master Data
     </div>
-    <li class="nav-item {{ Route::currentRouteName() == 'kategori*' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('kategori.index') }}">
+    <li class="nav-item {{ Route::currentRouteName() == 'item.index' || Route::currentRouteName() == 'kategori.index' || Route::currentRouteName() == 'satuan.index' ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1"
+            aria-expanded="true" aria-controls="collapsePages1">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Kategori</span></a>
+            <span>Resources</span>
+        </a>
+        <div id="collapsePages1" class="collapse {{ Route::currentRouteName() == 'item.index' || Route::currentRouteName() == 'kategori.index' || Route::currentRouteName() == 'satuan.index' ? 'show' : '' }}" aria-labelledby="headingPages1" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('item.index') }}">Items</a>
+                <a class="collapse-item" href="{{ route('kategori.index') }}">Kategori</a>
+                <a class="collapse-item" href="{{ route('satuan.index') }}">Satuan Item</a>
+            </div>
+        </div>
     </li>
-
-    <li class="nav-item {{ Route::currentRouteName() == 'satuan*' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('satuan.index') }}">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Satuan</span></a>
-    </li>
-
-    <li class="nav-item {{ Route::currentRouteName() == 'item*' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('item.index') }}">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Items</span></a>
-    </li>
-
     @endrole
 
     @role('Owner|Purchase')
 
-    <li class="nav-item {{ Route::currentRouteName() == 'vendors*' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('vendors.index') }}">
+    <li class="nav-item {{ Route::currentRouteName() == 'vendors.index' || Request::is('vendor-items*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Vendor</span></a>
+            <span>Vendor</span>
+        </a>
+        <div id="collapsePages" class="collapse {{ Route::currentRouteName() == 'vendors.index' || Request::is('vendor-items*') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('vendors.index') }}">Vendor List</a>
+                <a class="collapse-item" href="{{ route('vendor-items') }}">Vendor Items</a>
+                {{-- <a class="collapse-item" href="{{ route('satuan.index') }}">Satuan Item</a> --}}
+            </div>
+        </div>
     </li>
+    @endrole
 
-    <li class="nav-item {{ Route::currentRouteName() == 'vendor-items*' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('vendor-items') }}">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Vendor Items</span></a>
+    @role('Owner')
+    <li class="nav-item {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('users.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span></a>
     </li>
-
     @endrole
 
 
-
-
-    @role('Chef')
+    @role('Chef|Owner')
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -76,10 +81,24 @@
         Request
     </div>
      <!-- Nav Item - Charts -->
-     <li class="nav-item {{ Route::currentRouteName() == 'request*' ? 'active' : '' }}">
+     <li class="nav-item {{ Route::currentRouteName() == 'request.create' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('request.create') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Request Items</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Laporan
+    </div>
+     <!-- Nav Item - Charts -->
+     <li class="nav-item {{ Route::currentRouteName() == 'laporan.request' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan.request') }}">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Laporan Request</span></a>
     </li>
 
    @endrole
@@ -92,13 +111,7 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-    {{-- <!-- Sidebar Message -->
-    <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!
-        </p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-    </div> --}}
+
 
 </ul>
 <!-- End of Sidebar -->

@@ -15,11 +15,15 @@
                             <p><strong>Tanggal:</strong>
                                 {{ \Carbon\Carbon::parse($modelsRequest->tanggal)->format('d M Y') }}</p>
                             <p><strong>Nama Chef:</strong> {{ $modelsRequest->user->name }}</p>
+                            @if (in_array($modelsRequest->status, ['Sudah Order', 'Success']))
+                            <a target="_blank" href="{{ route('request.show', [$modelsRequest->id, 'export' => true]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Cetak Invoice</a>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <p><strong>Status:</strong> {{ $modelsRequest->status }}</p>
                             <p><strong>Waiting:</strong> {{ $modelsRequest->waiting ?? '-' }}</p>
-                            <p><strong>Status Pembayaran:</strong> {{ $modelsRequest->is_payment ? 'Paid ('. $modelsRequest->bank .')' : 'Unpaid' }}</p>
+                            <p><strong>Status Pembayaran:</strong> {{ $modelsRequest->is_payment ? 'Paid ('. $modelsRequest->method .')' : 'Unpaid' }}</p>
                         </div>
                     </div>
 
@@ -77,12 +81,11 @@
                 @method('PUT')
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="bank" class="col-form-label">Transfer Menggunakan Bank</label>
-                        <select class="form-control" id="bank" name="bank">
-                            <option value="" selected disabled>Pilih Bank</option>
-                            <option value="BCA">BCA</option>
-                            <option value="Bank Mandiri">Bank Mandiri</option>
-                            <option value="BRI">BRI</option>
+                        <label for="method" class="col-form-label">Methode Pembayaran</label>
+                        <select class="form-control" id="method" name="method">
+                            <option value="" selected disabled>Pilih Metode Pembayaran</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Transfer">Transfer</option>
                         </select>
                     </div>
                     {{-- <div class="form-group">

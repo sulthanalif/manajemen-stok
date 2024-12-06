@@ -63,10 +63,10 @@ class RequestTable extends Component
         ]);
 
         foreach ($this->datas as $key => $data) {
-            RequestItem::find($key)->update([
+            $this->modelsRequest->requestItems()->where('item_id', $key)->update([
                 'vendor_id' => $data['vendor_id'],
                 'harga' => $data['harga'],
-                'sub_total' => $data['subtotal']
+                'sub_total' => $data['subtotal'],
             ]);
         }
 

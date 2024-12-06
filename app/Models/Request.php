@@ -15,7 +15,7 @@ class Request extends Model
         'status',
         'waiting',
         'total_harga',
-        'bank',
+        'method',
         'is_payment',
     ];
 

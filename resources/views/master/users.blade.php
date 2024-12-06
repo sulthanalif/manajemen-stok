@@ -19,23 +19,23 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Kategori</th>
-                                        <th>Stok</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($items as $k)
+                                    @foreach ($users as $k)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $k->nama }}</td>
-                                            <td>{{ $k->kategori->nama }}</td>
-                                            <td>{{ $k->stok }}{{ $k->satuan->simbol }}</td>
+                                            <td>{{ $k->name }}</td>
+                                            <td>{{ $k->email }}</td>
+                                            <td>{{ $k->roles[0]->name }}</td>
                                             <td class="text-center justify-content-center d-flex">
                                                 <button class="btn btn-sm btn-primary mr-2"
                                                     data-toggle="modal"
                                                     data-target="#editModal{{ $k->id }}"><i class="fas fa-edit"></i></button>
-                                                <form action="{{ route('item.destroy', $k->id) }}" method="POST">
+                                                <form action="{{ route('users.destroy', $k->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type='submit' class="btn btn-sm btn-danger"><i
@@ -55,34 +55,31 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="{{ route('item.update', $k->id) }}" method="POST">
+                                                    <form action="{{ route('users.update', $k->id) }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="nama" class="col-form-label">Nama</label>
-                                                                <input type="text" class="form-control" value="{{ $k->nama }}" id="nama"
-                                                                    name="nama">
+                                                                <label for="name" class="col-form-label">Nama</label>
+                                                                <input type="text" class="form-control" value="{{ $k->name }}" id="name"
+                                                                    name="name">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="kategori_id" class="col-form-label">Kategori</label>
-                                                                <select name="kategori_id" id="kategori_id" class="custom-select">
-                                                                    <option value=""  disabled>Pilih Kategori</option>
-                                                                    @foreach ($kategoris as $ka)
-                                                                        <option value="{{ $ka->id }}" {{ $ka->id == $k->kategori_id ? 'selected' : '' }}>{{ $ka->nama }}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <label for="email" class="col-form-label">email</label>
+                                                                <input type="email" class="form-control" value="{{ $k->email }}" id="email"
+                                                                    name="email">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="stok" class="col-form-label">Stok</label>
-                                                                <input type="number" class="form-control" id="stok" value="{{ old('stok', $k->stok) }}" name="stok">
+                                                                <label for="password" class="col-form-label">Password</label>
+                                                                <input type="password" class="form-control" value="" id="password"
+                                                                    name="password" placeholder="Kosongkan jika tidak diubah..">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="satuan_id" class="col-form-label">Satuan</label>
-                                                                <select name="satuan_id" id="satuan_id" class="custom-select">
-                                                                    <option value=""  disabled>Pilih Satuan</option>
-                                                                    @foreach ($satuans as $s)
-                                                                        <option value="{{ $s->id }}" {{ $s->id == $k->satuan_id ? 'selected' : '' }}>{{ $s->nama }} ({{ $s->simbol }})</option>
+                                                                <label for="role" class="col-form-label">Role</label>
+                                                                <select name="role" id="role" class="custom-select">
+                                                                    <option value=""  disabled>Pilih Role</option>
+                                                                    @foreach ($roles as $r)
+                                                                        <option value="{{ $r->name }}" {{ $k->roles[0]->name == $r->name ? 'selected' : '' }}>{{ $r->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -118,32 +115,27 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('item.store') }}" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="nama" class="col-form-label">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama">
+                                <label for="name" class="col-form-label">Nama</label>
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                             <div class="form-group">
-                                <label for="kategori_id" class="col-form-label">Kategori</label>
-                                <select name="kategori_id" id="kategori_id" class="custom-select">
-                                    <option value="" selected disabled>Pilih Kategori</option>
-                                    @foreach ($kategoris as $k)
-                                        <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" class="form-control" id="email" name="email">
                             </div>
                             <div class="form-group">
-                                <label for="stok" class="col-form-label">Stok</label>
-                                <input type="number" class="form-control" id="stok" name="stok">
+                                <label for="password" class="col-form-label">Password</label>
+                                <input type="text" class="form-control" id="password" name="password">
                             </div>
                             <div class="form-group">
-                                <label for="satuan_id" class="col-form-label">Satuan</label>
-                                <select name="satuan_id" id="satuan_id" class="custom-select">
-                                    <option value="" selected disabled>Pilih Satuan</option>
-                                    @foreach ($satuans as $s)
-                                        <option value="{{ $s->id }}">{{ $s->nama }} ({{ $s->simbol }})</option>
+                                <label for="role" class="col-form-label">Role</label>
+                                <select name="role" id="role" class="custom-select">
+                                    <option value="" selected disabled>Pilih Role</option>
+                                    @foreach ($roles as $k)
+                                        <option value="{{ $k->name }}">{{ $k->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

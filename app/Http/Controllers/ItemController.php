@@ -19,6 +19,7 @@ class ItemController extends Controller
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
 
+        // dd($items);
         return view('master.item', compact('items', 'kategoris', 'satuans'));
     }
 

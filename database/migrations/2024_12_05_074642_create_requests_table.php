@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->string('waiting')->nullable();
             $table->decimal('total_harga', 20, 2)->nullable();
-            $table->string('bank')->nullable();
+            $table->string('method')->nullable();
             $table->boolean('is_payment')->default(false);
             $table->timestamps();
         });
