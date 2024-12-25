@@ -10,9 +10,9 @@
             <input type="date" class="form-control" id="tanggal" name="tanggal" wire:model.live='tanggal'>
         </div>
         <div class="form-group">
-            <label for="kategori_id" class="col-form-label">Pilih Barang</label>
+            <label for="kategori_id" class="col-form-label">Pilih Kategori</label>
             <select name="kategori_id" id="kategori_id" class="custom-select select" wire:change='selectItems($event.target.value)'>
-                <option value="" selected>-- Pilih Barang --</option>
+                <option value="" selected>-- Pilih Kategori --</option>
                 @foreach ($kategoris as $kategori)
                     <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
                 @endforeach
