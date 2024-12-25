@@ -53,7 +53,7 @@
        <tfoot>
         <tr>
             <th colspan="5" style="text-align: right">Total Harga</th>
-            <td>Rp. {{ number_format($modelsRequest->total_harga ?? $totalharga , 0, ',', '.') }}</td>
+            <td>Rp. {{ number_format(($totalharga == 0 ? $modelsRequest->total_harga : $totalharga) , 0, ',', '.') }}</td>
         </tr>
     </tfoot>
        @endrole

@@ -15,13 +15,46 @@ class RequestController extends Controller
         $start = $request->get('start', date('Y-m-d'));
         $end = $request->get('end', date('Y-m-d'));
 
+        if ($start > $end) {
+            Alert::error('Error', 'Tanggal awal tidak boleh lebih besar dari tanggal akhir');
+            return redirect()->route('laporan.request');
+        }
+
         $modelsRequest = ModelsRequest::whereBetween('tanggal', [$start, $end])
+            ->with(['requestItems.item' => function ($q) {
+                $q->with('kategori');
+            }])
             ->get();
 
+        $dataItems = [];
+        foreach ($modelsRequest as $item) {
+            foreach ($item->requestItems as $items) {
+                $index = array_search($items->item->id, array_column($dataItems, 'id'));
+                if ($index === false) {
+                    $dataItems[] = [
+                        'id' => $items->item->id,
+                        'nama' => $items->item->nama,
+                        'kategori' => $items->item->kategori->nama,
+                        'qty' => $items->jumlah,
+                    ];
+                } else {
+                    $dataItems[$index]['qty'] += $items->jumlah;
+                }
+            }
+        }
+
         if ($request->get('export')) {
-            $title = 'Laporan Request ' . \Carbon\Carbon::parse($start)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($end)->translatedFormat('d F Y');
+            $title = $start == $end ? 'Laporan Items ' . \Carbon\Carbon::parse($start)->translatedFormat('d F Y') : 'Laporan Items ' . \Carbon\Carbon::parse($start)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($end)->translatedFormat('d F Y');
             $mpdf = new \Mpdf\Mpdf();
             $mpdf->WriteHTML(view('laporan.pdf.request', ['datas' => $modelsRequest, 'title' => $title]));
+            $mpdf->Output();
+        }
+
+        if ($request->get('exportItem')) {
+            // return response()->json($dataItems);
+            $title = $start == $end ? 'Laporan Items ' . \Carbon\Carbon::parse($start)->translatedFormat('d F Y') : 'Laporan Items ' . \Carbon\Carbon::parse($start)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($end)->translatedFormat('d F Y');
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view('laporan.pdf.item', ['datas' => $dataItems, 'title' => $title]));
             $mpdf->Output();
         }
 
@@ -77,11 +110,14 @@ class RequestController extends Controller
 
     public function payment(Request $request, ModelsRequest $modelsRequest)
     {
+        $path = $request->file('image')->store('image-payments', 'public');
+
         $modelsRequest->update([
             'status' => 'Paid',
             'waiting' => 'Order.......',
             'method' => $request->method,
-            'is_payment' => 1
+            'is_payment' => 1,
+            'image' => $path
         ]);
         Alert::success('Berhasil', 'Pembayaran Berhasil');
         return redirect()->route('request.show', $modelsRequest->id);

@@ -17,6 +17,7 @@ class Request extends Model
         'total_harga',
         'method',
         'is_payment',
+        'image',
     ];
 
     public function user()

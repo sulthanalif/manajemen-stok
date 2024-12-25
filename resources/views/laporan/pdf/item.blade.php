@@ -27,35 +27,29 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 50px">No</th>
-                <th style="width: 150px">Tanggal</th>
-                <th>No Req</th>
-                @role('Owner|Purchase|Kepala Toko')
-                <th>Chef</th>
-                <th>Total Harga</th>
-                @endrole
+                <th style="width: 20px">No</th>
+                <th style="width: 150px">Nama</th>
+                <th style="width: 150px">Kategori</th>
+                <th style="width: 150px">Kuantitas</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($datas as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
-                    <td style="text-align: center">{{ $data->code }}</td>
-                    @role('Owner|Purchase|Kepala Toko')
-                    <td>{{ $data->user->name }}</td>
-                    <td>Rp.{{ number_format($data->total_harga, 0, ',', '.') }}</td>
-                    @endrole
+                    <td>{{ $data['nama'] }}</td>
+                    <td>{{ $data['kategori'] }}</td>
+                    <td style="text-align: center">{{ $data['qty'] }}</td>
                 </tr>
             @endforeach
-            @role('Owner|Purchase|Kepala Toko')
+
             <tr>
                 <tr>
-                    <th colspan="4" style="text-align: center">Total Pengeluaran</th>
-                    <td>Rp. {{ number_format(array_sum(array_column($datas->toArray(), 'total_harga')), 0, ',', '.') }}</td>
+                    <th colspan="3" style="text-align: center">Total</th>
+                    <td style="text-align: center">{{ array_sum(array_column($datas, 'qty')) }}</td>
                 </tr>
             </tr>
-            @endrole
+
         </tbody>
     </table>
 </body>

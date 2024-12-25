@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Item;
 use App\Models\Request;
 use Livewire\Component;
+use App\Models\Kategori;
 use App\Models\RequestItem;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -13,6 +14,9 @@ class FormRequest extends Component
 {
     public $code;
     public $tanggal;
+    public $kategori_id;
+
+    public $showItems = false;
 
 
     public $id;
@@ -22,6 +26,16 @@ class FormRequest extends Component
     public function mount()
     {
         $this->tanggal = date('Y-m-d');
+    }
+
+    public function selectItems($id)
+    {
+        if($id == '') {
+            $this->showItems = false;
+        } else {
+            $this->showItems = true;
+            $this->kategori_id = $id;
+        }
     }
 
     public function addItems()
@@ -78,7 +92,8 @@ class FormRequest extends Component
 
     public function render()
     {
-        $items = Item::all();
-        return view('livewire.form-request', compact('items'));
+        $kategoris = Kategori::all();
+        $items = Item::with('kategori')->where('kategori_id', $this->kategori_id)->get();
+        return view('livewire.form-request', compact('items', 'kategoris'));
     }
 }

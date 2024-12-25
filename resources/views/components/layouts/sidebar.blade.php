@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Daxi Restaurant</div>
     </a>
 
     <!-- Divider -->
@@ -45,7 +45,7 @@
     </li>
     @endrole
 
-    @role('Owner|Purchase')
+    @role('Owner|Purchase|Kepala Toko')
 
     <li class="nav-item {{ Route::currentRouteName() == 'vendors.index' || Request::is('vendor-items*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -72,7 +72,7 @@
     @endrole
 
 
-    @role('Chef|Owner')
+    @role('Chef|Owner|Kepala Toko|Purchase')
     <!-- Divider -->
     <hr class="sidebar-divider">
 

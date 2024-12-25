@@ -56,6 +56,11 @@ class RequestTable extends Component
     {
         // dd($this->datas);
 
+        if(count($this->datas) != count($this->modelsRequest->requestItems)) {
+            Alert::error('Gagal', 'Semua Item Harus Diisi');
+            return redirect()->route('request.show', $this->modelsRequest->id);
+        }
+
         $this->modelsRequest->update([
             'total_harga' => $this->totalharga,
             'status' => 'Vendor Sudah Dipilih',

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('total_harga', 20, 2)->nullable();
             $table->string('method')->nullable();
             $table->boolean('is_payment')->default(false);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

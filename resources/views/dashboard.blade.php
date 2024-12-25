@@ -107,7 +107,9 @@
                                         <th>No</th>
                                         <th>Kode</th>
                                         <th>Tanggal</th>
+                                        @role('Owner|Purchase|Kepala Toko')
                                         <th>Chef</th>
+                                        @endrole
                                         <th>Status</th>
                                         <th style="text-align: center">Action</th>
                                     </tr>
@@ -118,7 +120,9 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $r->code }}</td>
                                             <td>{{ \Carbon\Carbon::parse($r->tanggal)->format('d-m-Y') }}</td>
+                                            @role('Owner|Purchase|Kepala Toko')
                                             <td>{{ $r->user->name }}</td>
+                                            @endrole
                                             <td>
                                                 {{ $r->status }}
                                             </td>
@@ -140,7 +144,37 @@
 
         </div>
 
+        <div class="row">
+            <div class="col-12">
+                <!-- Bar Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Pengeluaran</h6>
+                        <form action="" method="GET">
+                            <div class="w">
+                                <select name="year" id="year" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    @for ($i = 2021; $i <= date('Y'); $i++)
+                                        <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar">
+                            <canvas id="myBarChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
 @endsection
+
+@push('scripts')
+    @include('dashboard-script')
+@endpush

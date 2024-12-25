@@ -29,7 +29,7 @@
 
                     <livewire:request-table :modelsRequest="$modelsRequest" />
                     <div class="float-right mt-5">
-                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali</a>
+                        <a href="javascript:window.history.back()" class="btn btn-secondary">Kembali</a>
                         @role('Kepala Toko||Owner')
                             {{-- <button type="button" class="btn btn-danger" onclick="reject({{ $modelsRequest->id }})">Reject</button> --}}
                             @if ($modelsRequest->status == 'Pending')
@@ -76,7 +76,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('request.payment', $modelsRequest->id) }}" method="POST">
+            <form action="{{ route('request.payment', $modelsRequest->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -88,10 +88,10 @@
                             <option value="Transfer">Transfer</option>
                         </select>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="keterangan" class="col-form-label">Keterangan</label>
-                        <input type="text" class="form-control" id="keterangan" name="keterangan">
-                    </div> --}}
+                    <div class="form-group">
+                        <label for="image" class="col-form-label">Bukti Pembayaran</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

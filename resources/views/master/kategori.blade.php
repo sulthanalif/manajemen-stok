@@ -33,12 +33,14 @@
                                                 <button class="btn btn-sm btn-primary mr-2"
                                                     data-toggle="modal"
                                                     data-target="#editModal{{ $k->id }}"><i class="fas fa-edit"></i></button>
+                                                @role('Owner|Kepala Toko')
                                                 <form action="{{ route('kategori.destroy', $k->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type='submit' class="btn btn-sm btn-danger"><i
                                                             class="fas fa-trash"></i></button>
                                                 </form>
+                                                @endrole
                                             </td>
                                         </tr>
                                         <!-- Modal edit -->

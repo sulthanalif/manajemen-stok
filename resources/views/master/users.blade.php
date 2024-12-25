@@ -62,12 +62,12 @@
                                                             <div class="form-group">
                                                                 <label for="name" class="col-form-label">Nama</label>
                                                                 <input type="text" class="form-control" value="{{ $k->name }}" id="name"
-                                                                    name="name">
+                                                                    name="name" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="email" class="col-form-label">email</label>
                                                                 <input type="email" class="form-control" value="{{ $k->email }}" id="email"
-                                                                    name="email">
+                                                                    name="email" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="password" class="col-form-label">Password</label>
@@ -76,7 +76,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="role" class="col-form-label">Role</label>
-                                                                <select name="role" id="role" class="custom-select">
+                                                                <select name="role" id="role" class="custom-select" required>
                                                                     <option value=""  disabled>Pilih Role</option>
                                                                     @foreach ($roles as $r)
                                                                         <option value="{{ $r->name }}" {{ $k->roles[0]->name == $r->name ? 'selected' : '' }}>{{ $r->name }}</option>
@@ -120,19 +120,19 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">Nama</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="col-form-label">Password</label>
-                                <input type="text" class="form-control" id="password" name="password">
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="form-group">
                                 <label for="role" class="col-form-label">Role</label>
-                                <select name="role" id="role" class="custom-select">
+                                <select name="role" id="role" class="custom-select" required>
                                     <option value="" selected disabled>Pilih Role</option>
                                     @foreach ($roles as $k)
                                         <option value="{{ $k->name }}">{{ $k->name }}</option>

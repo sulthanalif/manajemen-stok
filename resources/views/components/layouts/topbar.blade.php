@@ -10,8 +10,13 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
+        {{-- <li class="nav-item no-arrow">
+            <select name="" id="">
+                <option value=""></option>
+            </select>
+        </li> --}}
         <div class="topbar-divider d-none d-sm-block"></div>
+
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">

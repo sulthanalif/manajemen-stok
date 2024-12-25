@@ -10,14 +10,30 @@
             <input type="date" class="form-control" id="tanggal" name="tanggal" wire:model.live='tanggal'>
         </div>
         <div class="form-group">
-            <label for="item_id" class="col-form-label">Pilih Barang</label>
-            <select name="item_id" id="item_id" class="custom-select select" wire:model.live='id' wire:change='addItems'>
+            <label for="kategori_id" class="col-form-label">Pilih Barang</label>
+            <select name="kategori_id" id="kategori_id" class="custom-select select" wire:change='selectItems($event.target.value)'>
                 <option value="" selected>-- Pilih Barang --</option>
-                @foreach ($items as $item)
-                    <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->kategori->nama }})</option>
+                @foreach ($kategoris as $kategori)
+                    <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
                 @endforeach
             </select>
         </div>
+        @if ($showItems)
+        <div class="form-group">
+            <label for="item_id" class="col-form-label">Pilih Barang</label>
+            <select name="item_id" id="item_id" class="custom-select select" wire:model.live='id' wire:change='addItems'>
+
+                @if ($items->isNotEmpty())
+                <option value="" selected>-- Pilih Item --</option>
+                    @foreach ($items as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->kategori->nama }})</option>
+                    @endforeach
+                @else
+                    <option value="" selected>-- Tidak Ada Item --</option>
+                @endif
+            </select>
+        </div>
+        @endif
         <div class="mt-3">
             <table id="tableRequest" class="table">
                 <thead>

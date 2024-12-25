@@ -1,6 +1,6 @@
-<div style="width: 400px;">
-    <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center py-3">
+<div style="width: 350px;">
+    <div class="card shadow mb-2">
+        <div class="card-header d-flex justify-content-between align-items-center">
             {{-- <button class="btn btn-primary" @click="create = ! create">Tambah Data</button> --}}
             <div class="px-3">
                 <h5 class="m-0 font-weight-bold text-primary">{{ $vendor->nama }}</h5>
@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" style="font-size: 12px;" width="100%" cellspacing="0">
+                <table class="table table-bordered" style="font-size: 11px;" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>

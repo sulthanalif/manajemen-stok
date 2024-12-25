@@ -27,6 +27,9 @@
                     <div class="">
                     <a target="_blank" href="{{ route('laporan.request', array_merge(request()->query(), ['export' => 1])) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan</a>
+
+                    <a target="_blank" href="{{ route('laporan.request', array_merge(request()->query(), ['exportItem' => 1])) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan Items</a>
                 </div>
             </div>
             <div class="card-body">
@@ -37,8 +40,10 @@
                                 <th>No</th>
                                 <th>Kode</th>
                                 <th>Tanggal</th>
+                                @role('Owner|Purchase|Kepala Toko')
                                 <th>Chef</th>
                                 <th>Pengeluaran</th>
+                                @endrole
                                 <th style="text-align: center">Action</th>
                             </tr>
                         </thead>
@@ -48,10 +53,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $r->code }}</td>
                                     <td>{{ \Carbon\Carbon::parse($r->tanggal)->format('d-m-Y') }}</td>
+                                    @role('Owner|Purchase|Kepala Toko')
                                     <td>{{ $r->user->name }}</td>
                                     <td>
                                         Rp.{{ number_format($r->total_harga, 0, ',', '.') }}
                                     </td>
+                                    @endrole
                                     <td style="text-align: center">
                                         <a href="{{ route('request.show', $r->id) }}" class="btn btn-sm btn-primary"
                                             >

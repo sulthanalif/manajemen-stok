@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     //laporan
     Route::get('/laporan-request', [RequestController::class, 'laporanRequest'])->name('laporan.request');
+    // Route::get('/laporan-item', [RequestController::class, 'laporanItem'])->name('laporan.item');
 
 
 });
