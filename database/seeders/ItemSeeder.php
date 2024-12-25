@@ -19,24 +19,28 @@ class ItemSeeder extends Seeder
                 'kategori_id' => 2,
                 'satuan_id' => 6,
                 'stok' => 10,
+                'type' => 'Bukan Harian'
             ],
             [
                 'nama' => 'Katel',
                 'kategori_id' => 2,
                 'satuan_id' => 6,
                 'stok' => 5,
+                'type' => 'Bukan Harian'
             ],
             [
                 'nama' => 'Kol',
                 'kategori_id' => 3,
                 'satuan_id' => 6,
                 'stok' => 10,
+                'type' => 'Harian'
             ],
             [
                 'nama' => 'Bayam',
                 'kategori_id' => 3,
                 'satuan_id' => 6,
                 'stok' => 5,
+                'type' => 'Harian'
             ]
         ];
         foreach ($datas as $value) {

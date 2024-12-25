@@ -13,11 +13,18 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Item::latest()->get();
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
+
+        if ($request->get('export')) {
+            $title = 'Daftar Item';
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view('master.pdf.item', ['datas' => $items, 'title' => $title]));
+            $mpdf->Output();
+        }
 
         // dd($items);
         return view('master.item', compact('items', 'kategoris', 'satuans'));

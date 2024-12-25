@@ -78,13 +78,20 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Request
+        Transaksi
     </div>
      <!-- Nav Item - Charts -->
-     <li class="nav-item {{ Route::currentRouteName() == 'request.create' ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('request.create') }}">
+     <li class="nav-item {{ Route::currentRouteName() == 'request.index' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('request.index') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Request Items</span></a>
+    </li>
+
+     <!-- Nav Item - Charts -->
+     <li class="nav-item {{ Route::currentRouteName() == 'closing.index' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('closing.index') }}">
+            <i class="fas fa-fw fa-shopping-cart"></i>
+            <span>Closing Items</span></a>
     </li>
 
     <!-- Divider -->

@@ -86,7 +86,7 @@ class FormRequest extends Component
         }
 
         Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
-        $this->redirectRoute('dashboard');
+        $this->redirectRoute('request.index');
         $this->reset();
     }
 

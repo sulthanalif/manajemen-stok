@@ -6,10 +6,26 @@ use App\Models\Item;
 use App\Models\Kategori;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RequestController extends Controller
 {
+
+    public function index()
+    {
+        if(Auth::user()->roles[0]->name == 'chef') {
+            $requests = ModelsRequest::with(['user', 'requestItems.item' => function ($q) {
+                $q->with('kategori');
+            }])->where('user_id', Auth::user()->id)->get();
+        } else {
+            $requests = ModelsRequest::with(['user', 'requestItems.item' => function ($q) {
+                $q->with('kategori');
+            }])->get();
+        }
+
+        return view('request.index', compact('requests'));
+    }
     public function laporanRequest(Request $request)
     {
         $start = $request->get('start', date('Y-m-d'));

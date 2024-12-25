@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClosingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     //request
+    Route::get('/request', [RequestController::class, 'index'])->name('request.index');
     Route::get('/request-items', function () {
         return view('request.create');
     })->name('request.create');
@@ -41,6 +43,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/request-items/{modelsRequest}', [RequestController::class, 'show'])->name('request.show');
     Route::get('/request-items/{modelsRequest}/{status}', [RequestController::class, 'changeStatus'])->name('request.status');
     Route::put('/request-items/{modelsRequest}/payment', [RequestController::class, 'payment'])->name('request.payment');
+
+    //closing
+    Route::get('/closing', [ClosingController::class, 'index'])->name('closing.index');
+    Route::view('/closing-items', 'closing.create')->name('closing.create');
+    Route::get('/closing/{closing}', [ClosingController::class, 'show'])->name('closing.show');
+    Route::get('/closing/{closing}/{status}', [ClosingController::class, 'changeStatus'])->name('closing.status');
 
 
     //laporan

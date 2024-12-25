@@ -11,6 +11,7 @@ class Item extends Model
         'kategori_id',
         'stok',
         'satuan_id',
+        'type'
     ];
 
     public function vendorItems()
@@ -31,5 +32,10 @@ class Item extends Model
     public function requestItems()
     {
         return $this->hasMany(RequestItem::class);
+    }
+
+    public function closingItems()
+    {
+        return $this->hasMany(ClosingItems::class);
     }
 }
