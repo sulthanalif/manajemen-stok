@@ -107,6 +107,11 @@
             <i class="fas fa-fw fa-download"></i>
             <span>Laporan Request</span></a>
     </li>
+     <li class="nav-item {{ Route::currentRouteName() == 'laporan.closing' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan.closing') }}">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Laporan Closing</span></a>
+    </li>
 
    @endrole
 
