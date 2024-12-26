@@ -40,6 +40,8 @@
                     <div class="">
                     <a target="_blank" href="{{ route('laporan.closing', array_merge(request()->query(), ['export1' => 1])) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan</a>
+                    <a target="_blank" href="{{ route('laporan.closing', array_merge(request()->query(), ['export2' => 1])) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan Items</a>
                 </div>
             </div>
             <div class="card-body">

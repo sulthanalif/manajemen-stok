@@ -41,23 +41,47 @@ class ClosingController extends Controller
 
     public function laporanClosing(Request $request)
     {
-        $month = $request->get('month', date('m'));
-        $year = $request->get('year', date('Y'));
+        $month = $request->get('month') ?? date('m');
+        $year = $request->get('year') ?? date('Y');
 
         $closings = Closing::query()
             ->whereMonth('tanggal', $month)
-            ->whereYear('tanggal', $year);
+            ->whereYear('tanggal', $year)
+            ->get();
 
         if (Auth::user()->roles[0]->name == 'Chef') {
-            $closings->where('user_id', Auth::user()->id);
+            $closings = $closings->where('user_id', Auth::user()->id);
         }
 
-        $closings = $closings->get();
+        $datas = [];
+        $success_closings = $closings->where('status', 'Accepted');
+        foreach ($success_closings as $closing) {
+            foreach ($closing->closingItems as $item) {
+                $index = array_search($item->item->id, array_column($datas, 'id'));
+                if ($index === false) {
+                    $datas[] = [
+                        'id' => $item->item->id,
+                        'nama' => $item->item->nama,
+                        'kategori' => $item->item->kategori->nama,
+                        'jumlah_berkurang' => $item->jumlah_berkurang,
+                    ];
+                } else {
+                    $datas[$index]['jumlah_berkurang'] += $item->jumlah_berkurang;
+                }
+            }
+        }
 
         if ($request->get('export1')) {
             $title = 'Laporan Closing ' . ($request->get('month') ? \Carbon\Carbon::create()->month((int)$request->get('month'))->translatedFormat('F') : '') . ' ' . ($request->get('year') ?? '');
             $mpdf = new Mpdf();
             $mpdf->WriteHTML(view('laporan.pdf.closing', ['datas' => $closings, 'title' => $title]));
+            $mpdf->Output();
+        }
+
+        if ($request->get('export2')) {
+            $title = 'Laporan Closing Items ' . ($request->get('month') ? \Carbon\Carbon::create()->month((int)$request->get('month'))->translatedFormat('F') : '') . ' ' . ($request->get('year') ?? '');
+            $mpdf = new Mpdf();
+            $mpdf->WriteHTML(view('laporan.pdf.closing-items', ['datas' => $datas, 'title' => $title]));
             $mpdf->Output();
         }
 
