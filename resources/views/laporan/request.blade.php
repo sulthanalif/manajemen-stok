@@ -20,7 +20,7 @@
                                 <input type="date" name="end" value="{{ $end ?? '' }}" class="form-control">
                             </div>
                             <button type="submit" class="btn btn-primary">Filter</button>
-                            <a href="{{ route('laporan.request') }}" class="btn btn-primary ml-2">All</a>
+                            <a href="{{ route('laporan.request') }}" class="btn btn-primary ml-2">Reset</a>
                         </div>
                     </form>
                 </div>

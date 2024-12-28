@@ -33,7 +33,7 @@
                                     @endfor
                                 </select>
                             </div>
-                            <a href="{{ route('laporan.closing') }}" class="btn btn-primary ml-2">All</a>
+                            <a href="{{ route('laporan.closing') }}" class="btn btn-primary ml-2">Reset</a>
                         </div>
                     </form>
                 </div>

@@ -12,9 +12,17 @@ class KategoriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $kategoris = Kategori::all();
+
+        if ($request->get('export')) {
+            $title = 'Daftar Kategori';
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view('master.pdf.kategori', ['datas' => $kategoris, 'title' => $title]));
+            $mpdf->Output();
+
+        }
 
         return view('master.kategori', compact('kategoris'));
     }
