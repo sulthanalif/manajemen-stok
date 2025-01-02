@@ -113,4 +113,93 @@ var myBarChart = new Chart(ctx, {
 
 // console.log(json_encode($chartData));
 
+// Bar Chart Example
+var ctx2 = document.getElementById("myBarChart2");
+var myBarChart2 = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+    datasets: [{
+      label: "item Masuk",
+      backgroundColor: "#1cc88a",
+      hoverBackgroundColor: "#17a673",
+      borderColor: "#1cc88a",
+      data: <?php echo json_encode($itemTransactions['masuk']); ?>,
+    },
+    {
+      label: "item Keluar",
+      backgroundColor: "#4e73df",
+      hoverBackgroundColor: "#2e59d9",
+      borderColor: "#4e73df",
+      data: <?php echo json_encode($itemTransactions['keluar']); ?>,
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'month'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 12
+        },
+        maxBarThickness: 25,
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: <?php echo json_encode(max(array_merge($itemTransactions['masuk'], $itemTransactions['keluar']))); ?>,
+          maxTicksLimit: 5,
+          padding: 10,
+          callback: function(value, index, values) {
+            return number_format(value);
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + number_format(tooltipItem.yLabel);
+        }
+      }
+    },
+  }
+});
+
 </script>

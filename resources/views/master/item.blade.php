@@ -75,8 +75,8 @@
                                                                     name="nama"  required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="kategori_id" class="col-form-label">Kategori</label>
-                                                                <select name="kategori_id" id="kategori_id" class="custom-select"  required>
+                                                                {{-- <label for="kategori_id" class="col-form-label">Kategori</label> --}}
+                                                                <select name="kategori_id" id="kategori_id" class="my-select t"  required>
                                                                     <option value=""  disabled>Pilih Kategori</option>
                                                                     @foreach ($kategoris as $ka)
                                                                         <option value="{{ $ka->id }}" {{ $ka->id == $k->kategori_id ? 'selected' : '' }}>{{ $ka->nama }}</option>
@@ -88,8 +88,8 @@
                                                                 <input type="number" class="form-control" id="stok" value="{{ old('stok', $k->stok) }}" name="stok"  required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="satuan_id" class="col-form-label">Satuan</label>
-                                                                <select name="satuan_id" id="satuan_id" class="custom-select" required>
+                                                                {{-- <label for="satuan_id" class="col-form-label">Satuan</label> --}}
+                                                                <select name="satuan_id" id="satuan_id" class="my-select t" required>
                                                                     <option value=""  disabled>Pilih Satuan</option>
                                                                     @foreach ($satuans as $s)
                                                                         <option value="{{ $s->id }}" {{ $s->id == $k->satuan_id ? 'selected' : '' }}>{{ $s->nama }} ({{ $s->simbol }})</option>
@@ -97,8 +97,8 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="type" class="col-form-label">Jenis Barang</label>
-                                                                <select name="type" id="type" class="custom-select" required>
+                                                                {{-- <label for="type" class="col-form-label">Jenis Barang</label> --}}
+                                                                <select name="type" id="type" class="my-select" required>
                                                                     <option value="" disabled>Pilih Jenis</option>
                                                                     <option value="Harian" {{ $k->type == 'Harian' ? 'selected' : '' }}>Harian</option>
                                                                     <option value="Bukan Harian"{{ $k->type == 'Bukan Harian' ? 'selected' : '' }}>Bukan Harian</option>
@@ -145,8 +145,8 @@
                                 <input type="text" class="form-control" id="nama" name="nama"  required>
                             </div>
                             <div class="form-group">
-                                <label for="kategori_id" class="col-form-label">Kategori</label>
-                                <select name="kategori_id" id="kategori_id" class="custom-select"  required>
+                                {{-- <label for="kategori_id" class="col-form-label">Kategori</label> --}}
+                                <select name="kategori_id" id="kategori_id" class="my-select"  required>
                                     <option value="" selected disabled>Pilih Kategori</option>
                                     @foreach ($kategoris as $k)
                                         <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -158,8 +158,8 @@
                                 <input type="number" class="form-control" id="stok" name="stok">
                             </div>
                             <div class="form-group">
-                                <label for="satuan_id" class="col-form-label">Satuan</label>
-                                <select name="satuan_id" id="satuan_id" class="custom-select" required>
+                                {{-- <label for="satuan_id" class="col-form-label">Satuan</label> --}}
+                                <select name="satuan_id" id="satuan_id" class="my-select" required>
                                     <option value="" selected disabled>Pilih Satuan</option>
                                     @foreach ($satuans as $s)
                                         <option value="{{ $s->id }}">{{ $s->nama }} ({{ $s->simbol }})</option>
@@ -167,8 +167,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="type" class="col-form-label">Jenis Barang</label>
-                                <select name="type" id="type" class="custom-select" required>
+                                {{-- <label for="type" class="col-form-label">Jenis Barang</label> --}}
+                                <select name="type" id="type" class="my-select" required>
                                     <option value="" selected disabled>Pilih Jenis</option>
                                     <option value="Harian">Harian</option>
                                     <option value="Bukan Harian">Bukan Harian</option>

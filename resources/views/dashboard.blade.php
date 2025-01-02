@@ -215,10 +215,10 @@
             <div class="col-12">
                 <!-- Bar Chart -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
                         <h6 class="m-0 font-weight-bold text-primary">Pengeluaran</h6>
                         <form action="" method="GET">
-                            <div class="w">
+                            <div style="width: 200px">
                                 <select name="year" id="year" class="form-control form-control-sm" onchange="this.form.submit()">
                                     @for ($i = 2021; $i <= date('Y'); $i++)
                                         <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
@@ -230,6 +230,31 @@
                     <div class="card-body">
                         <div class="chart-bar">
                             <canvas id="myBarChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Bar Chart -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                        <h6 class="m-0 font-weight-bold text-primary">Transaksi Item</h6>
+                        {{-- <form action="" method="GET">
+                            <div style="width: 200px">
+                                <select name="year" id="year" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    @for ($i = 2021; $i <= date('Y'); $i++)
+                                        <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </form> --}}
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar">
+                            <canvas id="myBarChart2"></canvas>
                         </div>
 
                     </div>

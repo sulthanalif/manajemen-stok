@@ -51,6 +51,35 @@ class DashboardController extends Controller
 
         // return response()->json($chartData);
 
-        return view('dashboard', compact('requests', 'closings', 'allRequestCount', 'requestAccCount', 'requestPendingCount', 'requestRejectedCount', 'year', 'chartData'));
+        //barang masuk dan keluar
+        $itemTransactions = [
+            'masuk' => array_fill(0, 12, 0),
+            'keluar' => array_fill(0, 12, 0)
+        ];
+
+        $modelRequest = ModelsRequest::with(['requestItems' => function ($q) {
+            $q->selectRaw('request_id, SUM(jumlah) as jumlah')
+            ->groupBy('request_id');
+        }])->whereYear('tanggal', $year)->where('status', 'Success')->get();
+
+        foreach ($modelRequest as $item) {
+            $month = date('n', strtotime($item->tanggal)) - 1;
+            $itemTransactions['masuk'][$month] += $item->requestItems->sum('jumlah');
+        }
+
+        $modelClosing = Closing::with(['closingItems' => function ($q) {
+            $q->selectRaw('closing_id, SUM(jumlah_berkurang) as jumlah')
+              ->groupBy('closing_id');
+        }])->whereYear('tanggal', $year)->where('status', 'Accepted')->get();
+
+        foreach ($modelClosing as $item) {
+            $month = date('n', strtotime($item->tanggal)) - 1;
+            $itemTransactions['keluar'][$month] += $item->closingItems->sum('jumlah');
+        }
+
+        // dd($itemTransactions);
+
+        // dd($itemTransactions);
+        return view('dashboard', compact('requests', 'itemTransactions', 'closings', 'allRequestCount', 'requestAccCount', 'requestPendingCount', 'requestRejectedCount', 'year', 'chartData'));
     }
 }
