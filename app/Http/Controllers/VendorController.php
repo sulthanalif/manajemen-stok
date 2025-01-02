@@ -13,9 +13,16 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $vendors = Vendor::latest()->get();
+
+        if ($request->get('export')) {
+            $title = 'Daftar Vendor';
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view('master.pdf.vendor', ['datas' => $vendors, 'title' => $title]));
+            $mpdf->Output();
+        }
 
         return view('master.vendor', compact('vendors'));
     }

@@ -12,12 +12,22 @@ class ClosingController extends Controller
 {
     public function index()
     {
-        $closings = Closing::all();
+        if (Auth::user()->roles[0]->name == 'Chef') {
+            $closings = Closing::where('user_id', Auth::user()->id)->latest()->get();
+        } else {
+            $closings = Closing::latest()->get();
+        }
         return view('closing.index', compact('closings'));
     }
 
-    public function show(Closing $closing)
+    public function show(Request $request, Closing $closing)
     {
+        if ($request->get('export')) {
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view('closing.pdf.cetak', ['datas' => $closing]));
+            $mpdf->Output();
+        }
+
         return view('closing.show', compact('closing'));
     }
 

@@ -45,6 +45,12 @@
                                         {{ $r->status }}
                                     </td>
                                     <td style="text-align: center">
+                                        @if (in_array($r->status, ['Sudah Order', 'Success']))
+                                        <a href="{{ route('request.show', [$r->id, 'export' => true]) }}" class="btn btn-sm btn-primary"
+                                            target="_blank">
+                                            <i class="fas fa-print"></i>
+                                        </a>
+                                        @endif
                                         <a href="{{ route('request.show', $r->id) }}" class="btn btn-sm btn-primary"
                                             >
                                             <i class="fas fa-eye"></i>

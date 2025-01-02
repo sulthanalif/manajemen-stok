@@ -19,6 +19,10 @@
                         </div>
                         <div class="col-md-6">
                             <p><strong>Status:</strong> {{ $closing->status }}</p>
+                            @if ($closing->status == 'Accepted')
+                            <a target="_blank" href="{{ route('closing.show', [$closing->id, 'export' => true]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Cetak</a>
+                            @endif
                         </div>
                     </div>
 

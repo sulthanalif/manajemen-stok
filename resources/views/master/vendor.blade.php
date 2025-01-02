@@ -8,9 +8,15 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     {{-- <button class="btn btn-primary" @click="create = ! create">Tambah Data</button> --}}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal">
-                        Tambah Data
-                    </button>
+                    <div class="d-flex justify-content-between items-center">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahModal">
+                            Tambah Data
+                        </button>
+                        <div>
+                            <a target="_blank" href="{{ route('vendors.index', array_merge(request()->query(), ['export' => 1])) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Cetak List</a>
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <div class="table-responsive">

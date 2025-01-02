@@ -87,12 +87,14 @@
             <span>Request Items</span></a>
     </li>
 
-     <!-- Nav Item - Charts -->
-     <li class="nav-item {{ Route::currentRouteName() == 'closing.index' ? 'active' : '' }}">
+         @role('Chef|Owner|Kepala Toko')
+    <!-- Nav Item - Charts -->
+    <li class="nav-item {{ Route::currentRouteName() == 'closing.index' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('closing.index') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Closing Items</span></a>
     </li>
+    @endrole
 
     <!-- Divider -->
     <hr class="sidebar-divider">

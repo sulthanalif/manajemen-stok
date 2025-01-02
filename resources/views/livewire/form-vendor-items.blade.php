@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="item_id" class="col-form-label">Pilih Barang</label>
-            <select name="item_id" id="item_id" class="                 " wire:model.live='id' wire:change='addItems'>
+            <select name="item_id" id="item_id" class="custom-select" wire:model.live='id' wire:change='addItems'>
                 <option value="" selected>-- Pilih Barang --</option>
                 @foreach ($items as $item)
                     <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->kategori->nama }})</option>

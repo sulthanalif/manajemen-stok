@@ -45,6 +45,12 @@
                                         {{ $r->status }}
                                     </td>
                                     <td style="text-align: center">
+                                        @if ($r->status == 'Accepted')
+                                        <a href="{{ route('closing.show', [$r->id, 'export' => true]) }}" class="btn btn-sm btn-primary"
+                                            target="_blank">
+                                            <i class="fas fa-print"></i>
+                                        </a>
+                                        @endif
                                         <a href="{{ route('closing.show', $r->id) }}" class="btn btn-sm btn-primary"
                                             >
                                             <i class="fas fa-eye"></i>
