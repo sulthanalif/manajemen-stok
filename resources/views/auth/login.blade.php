@@ -48,8 +48,8 @@
                                                 id="exampleInputEmail" name='email' aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                             @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                <span class="text-xs text-danger">
+                                                    {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
@@ -57,8 +57,8 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" name="password" placeholder="Password">
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                <span class="text-xs text-danger">
+                                                    {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
@@ -75,12 +75,6 @@
 
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="">Create an Account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
